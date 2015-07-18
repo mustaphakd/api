@@ -19,16 +19,34 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
+/**
+ * ...and connect the rest of 'Pages' controller's URLs.
+ */
+    Router::connect('/continents/*', array('controller' => 'Continents', 'action' => 'get'));
+
+    Router::connect(
+        '/regions/*',
+        array('controller' => 'Regions', 'action' => 'get'),
+        array(
+            'pass' => array('continent')
+        )
+    );
+
+Router::connect(
+    '/countries/*',
+    array('controller' => 'Countries', 'action' => 'get'),
+    array(
+        'pass' => array('continent')
+    )
+);
+
 /**
  * Here, we are connecting '/' (base path) to controller called 'Pages',
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
-	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
-/**
- * ...and connect the rest of 'Pages' controller's URLs.
- */
-	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+Router::connect('/', array('controller' => 'Countries', 'action' => 'get_all'));
 
 Router::mapResources('regions');
 Router::mapResources('countries');
